@@ -40,7 +40,7 @@ dependencies {
     def lifecycle_version = "2.0.0"
     def supportLibraryVersion = '1.0.0'
     def rxJava2Version = '2.1.3'
-    def rxAndroidVersion = '2.0.1'
+    def rxAndroidVersion = '2.0.2'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:1.0.2"

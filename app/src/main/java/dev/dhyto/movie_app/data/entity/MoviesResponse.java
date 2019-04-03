@@ -1,4 +1,4 @@
-package dev.dhyto.movie_app.data.model;
+package dev.dhyto.movie_app.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,13 +10,13 @@ import java.util.List;
 
 public class MoviesResponse {
     @SerializedName("results")
-    private List<Movie> results ;
+    private List<MovieEntity> results ;
 
-    public List<Movie> getResults() {
+    public List<MovieEntity> getResults() {
         return results;
     }
 
-    public void setResults(List<Movie> results) {
+    public void setResults(List<MovieEntity> results) {
         this.results = results;
     }
 }

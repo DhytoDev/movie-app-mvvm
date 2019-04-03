@@ -6,50 +6,52 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import dev.dhyto.movie_app.base.BaseViewModel;
-import dev.dhyto.movie_app.data.MovieRepository;
-import dev.dhyto.movie_app.data.model.Movie;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import dev.dhyto.movie_app.domain.GetMovies;
+import dev.dhyto.movie_app.domain.model.Movie;
 
-public class MovieViewModel extends BaseViewModel {
+public class MovieViewModel extends BaseViewModel<GetMovies> implements GetMovies.OnMovieListener {
     private MutableLiveData<Boolean> showLoading;
     private MutableLiveData<String> errorMessage;
+    private MutableLiveData<List<Movie>> nowPlayingMoviesData;
 
-    public MovieViewModel(MovieRepository repository) {
-        super(repository);
+
+    public MovieViewModel(GetMovies interactor) {
+        super(interactor);
         showLoading = new MutableLiveData<>();
         errorMessage = new MutableLiveData<>();
+        nowPlayingMoviesData = new MutableLiveData<>();
+        getInteractor().onMovieListener = this;
+        getNowPlayingMovies();
     }
 
 
-    public LiveData<List<Movie>> getNowPlayingMovies() {
+    public void getNowPlayingMovies() {
         showLoading.setValue(true);
+        getInteractor().getNowPlayingMovies();
+    }
 
-        MutableLiveData<List<Movie>> moviesLiveData = new MutableLiveData<>();
+    @Override
+    public void onMovieSuccess(List<Movie> movies) {
+        showLoading.setValue(false);
+        nowPlayingMoviesData.postValue(movies);
 
-        getCompositeDisposable().add(
-                getRepository().getNowPlayingMovies()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(movies -> {
-                                    if (movies != null && movies.size() > 0)
-                                        moviesLiveData.setValue(movies);
-                                    showLoading.setValue(false);
-                                }, throwable -> {
-                                    errorMessage.setValue(throwable.getMessage());
-                                    showLoading.setValue(false);
-                                }
-                        )
+    }
 
-        );
-        return moviesLiveData;
+    @Override
+    public void onMovieError(String message) {
+        showLoading.setValue(false);
+        errorMessage.setValue(message);
+    }
+
+    public LiveData<Boolean> getShowLoading() {
+        return showLoading;
     }
 
     public LiveData<String> getErrorMessage() {
         return errorMessage;
     }
 
-    public LiveData<Boolean> getShowLoading() {
-        return showLoading;
+    public LiveData<List<Movie>> getNowPlayingMoviesData() {
+        return nowPlayingMoviesData;
     }
 }

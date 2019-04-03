@@ -1,8 +1,9 @@
 package dev.dhyto.movie_app.utils;
 
-import dev.dhyto.movie_app.base.ViewModelProviderFactory;
-import dev.dhyto.movie_app.data.MovieRepository;
+import dev.dhyto.movie_app.ui.MovieViewModelProviderFactory;
+import dev.dhyto.movie_app.data.repository.MovieRepository;
 import dev.dhyto.movie_app.data.network.MovieService;
+import dev.dhyto.movie_app.domain.GetMovies;
 
 public class InjectorUtils {
 
@@ -11,8 +12,9 @@ public class InjectorUtils {
         return MovieRepository.getInstance(service);
     }
 
-    public static ViewModelProviderFactory provideViewModelProviderFactory(){
+    public static MovieViewModelProviderFactory provideViewModelProviderFactory(){
         MovieRepository repository = provideRepository();
-        return new ViewModelProviderFactory(repository);
+        GetMovies movieInteractor = new GetMovies(repository);
+        return new MovieViewModelProviderFactory(movieInteractor);
     }
 }

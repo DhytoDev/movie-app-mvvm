@@ -1,31 +1,22 @@
 package dev.dhyto.movie_app.base;
 
-import android.content.Context;
-
 import androidx.lifecycle.ViewModel;
-import dev.dhyto.movie_app.data.MovieRepository;
-import io.reactivex.disposables.CompositeDisposable;
+import dev.dhyto.movie_app.domain.UseCase;
 
-public class BaseViewModel extends ViewModel {
-    private MovieRepository repository;
-    private CompositeDisposable compositeDisposable ;
+public class BaseViewModel<I extends UseCase> extends ViewModel {
+   private I interactor ;
 
-    public BaseViewModel(MovieRepository repository) {
-        this.repository = repository;
-        compositeDisposable = new CompositeDisposable();
+    public BaseViewModel(I interactor) {
+        this.interactor = interactor;
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        compositeDisposable.dispose();
+        interactor.dispose();
     }
 
-    protected MovieRepository getRepository() {
-        return repository;
-    }
-
-    protected CompositeDisposable getCompositeDisposable() {
-        return compositeDisposable;
+    public I getInteractor() {
+        return interactor;
     }
 }

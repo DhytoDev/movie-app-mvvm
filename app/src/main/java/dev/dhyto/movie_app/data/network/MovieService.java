@@ -2,8 +2,8 @@ package dev.dhyto.movie_app.data.network;
 
 import androidx.lifecycle.LiveData;
 import dev.dhyto.movie_app.BuildConfig;
-import dev.dhyto.movie_app.data.model.MoviesResponse;
-import dev.dhyto.movie_app.data.model.TrailerResponse;
+import dev.dhyto.movie_app.data.entity.MoviesResponse;
+import dev.dhyto.movie_app.data.entity.TrailerResponse;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

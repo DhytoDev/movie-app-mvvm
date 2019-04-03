@@ -1,11 +1,12 @@
-package dev.dhyto.movie_app.data;
+package dev.dhyto.movie_app.data.repository;
 
 import android.util.Log;
 
 import java.util.List;
 
-import dev.dhyto.movie_app.data.model.Movie;
+import dev.dhyto.movie_app.data.entity.mapper.MovieEntityDataMapper;
 import dev.dhyto.movie_app.data.network.MovieService;
+import dev.dhyto.movie_app.domain.model.Movie;
 import io.reactivex.Observable;
 
 public class MovieRepository {
@@ -37,6 +38,7 @@ public class MovieRepository {
 
     public Observable<List<Movie>> getNowPlayingMovies() {
         return getMovieService().getNowPlayingMovies().flatMap(
-                moviesResponse -> Observable.just(moviesResponse.getResults()));
+                moviesResponse -> Observable.just(moviesResponse.getResults())
+                        .map(MovieEntityDataMapper::transform));
     }
 }

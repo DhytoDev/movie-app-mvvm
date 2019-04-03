@@ -6,8 +6,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import dev.dhyto.movie_app.R;
-import dev.dhyto.movie_app.base.ViewModelProviderFactory;
-import dev.dhyto.movie_app.data.model.Movie;
+import dev.dhyto.movie_app.domain.model.Movie;
 import dev.dhyto.movie_app.utils.InjectorUtils;
 
 public class HomeActivity extends AppCompatActivity {
@@ -19,10 +18,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_movies);
 
-        ViewModelProviderFactory factory = InjectorUtils.provideViewModelProviderFactory();
+        MovieViewModelProviderFactory factory = InjectorUtils.provideViewModelProviderFactory();
         MovieViewModel viewModel = ViewModelProviders.of(this, factory).get(MovieViewModel.class);
 
-        viewModel.getNowPlayingMovies().observe(this, movies -> {
+
+        viewModel.getNowPlayingMoviesData().observe(this, movies -> {
 
             if (movies != null && movies.size() > 0) {
                 for (Movie movie : movies) {
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void printErrorMessage(String message){
+    private void printErrorMessage(String message) {
         Log.d(LOG + "error : ", message);
     }
 }

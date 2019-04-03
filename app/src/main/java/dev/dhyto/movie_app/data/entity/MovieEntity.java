@@ -1,6 +1,5 @@
-package dev.dhyto.movie_app.data.model;
+package dev.dhyto.movie_app.data.entity;
 
-import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by izadalab on 7/8/17.
  */
 
-public class Movie implements Parcelable {
+public class MovieEntity implements Parcelable {
     @SerializedName("id")
     private int id;
     @SerializedName("title")
@@ -104,7 +103,7 @@ public class Movie implements Parcelable {
         this.voteAverage = voteAverage;
     }
 
-    public Movie() {
+    public MovieEntity() {
     }
 
     @Override
@@ -125,7 +124,7 @@ public class Movie implements Parcelable {
         dest.writeFloat(this.voteAverage);
     }
 
-    protected Movie(Parcel in) {
+    protected MovieEntity(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.popularity = in.readFloat();
@@ -137,15 +136,15 @@ public class Movie implements Parcelable {
         this.voteAverage = in.readFloat();
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+    public static final Creator<MovieEntity> CREATOR = new Creator<MovieEntity>() {
         @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
+        public MovieEntity createFromParcel(Parcel source) {
+            return new MovieEntity(source);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public MovieEntity[] newArray(int size) {
+            return new MovieEntity[size];
         }
     };
 }
