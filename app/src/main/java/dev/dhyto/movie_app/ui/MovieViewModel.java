@@ -5,11 +5,13 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import dev.dhyto.domain.interactors.GetMovies;
+import dev.dhyto.domain.models.Movie;
 import dev.dhyto.movie_app.base.BaseViewModel;
-import dev.dhyto.movie_app.domain.GetMovies;
-import dev.dhyto.movie_app.domain.model.Movie;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class MovieViewModel extends BaseViewModel<GetMovies> implements GetMovies.OnMovieListener {
+public class MovieViewModel extends BaseViewModel<GetMovies> {
     private MutableLiveData<Boolean> showLoading;
     private MutableLiveData<String> errorMessage;
     private MutableLiveData<List<Movie>> nowPlayingMoviesData;
@@ -20,28 +22,24 @@ public class MovieViewModel extends BaseViewModel<GetMovies> implements GetMovie
         showLoading = new MutableLiveData<>();
         errorMessage = new MutableLiveData<>();
         nowPlayingMoviesData = new MutableLiveData<>();
-        getInteractor().onMovieListener = this;
         getNowPlayingMovies();
     }
 
 
     public void getNowPlayingMovies() {
         showLoading.setValue(true);
-        getInteractor().getNowPlayingMovies();
+        getCompositeDisposable().add(getInteractor().getNowPlayingMovies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(movies -> {
+                    showLoading.setValue(false);
+                    nowPlayingMoviesData.postValue(movies);
+                }, throwable -> {
+                    showLoading.setValue(false);
+                    errorMessage.setValue(throwable.getMessage());
+                }));
     }
 
-    @Override
-    public void onMovieSuccess(List<Movie> movies) {
-        showLoading.setValue(false);
-        nowPlayingMoviesData.postValue(movies);
-
-    }
-
-    @Override
-    public void onMovieError(String message) {
-        showLoading.setValue(false);
-        errorMessage.setValue(message);
-    }
 
     public LiveData<Boolean> getShowLoading() {
         return showLoading;

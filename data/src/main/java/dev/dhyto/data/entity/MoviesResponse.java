@@ -1,4 +1,4 @@
-package dev.dhyto.movie_app.data.entity;
+package dev.dhyto.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 

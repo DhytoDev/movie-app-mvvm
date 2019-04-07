@@ -1,10 +1,10 @@
-package dev.dhyto.movie_app.data.entity.mapper;
+package dev.dhyto.data.entity.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.dhyto.movie_app.data.entity.MovieEntity;
-import dev.dhyto.movie_app.domain.model.Movie;
+import dev.dhyto.data.entity.MovieEntity;
+import dev.dhyto.domain.models.Movie;
 
 public class MovieEntityDataMapper {
 

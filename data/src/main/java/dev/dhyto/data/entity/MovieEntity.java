@@ -1,4 +1,4 @@
-package dev.dhyto.movie_app.data.entity;
+package dev.dhyto.data.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

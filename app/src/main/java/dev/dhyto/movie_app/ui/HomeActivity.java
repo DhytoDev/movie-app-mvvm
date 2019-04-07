@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import dev.dhyto.movie_app.R;
-import dev.dhyto.movie_app.domain.model.Movie;
+import dev.dhyto.domain.models.Movie;
 import dev.dhyto.movie_app.utils.InjectorUtils;
 
 public class HomeActivity extends AppCompatActivity {

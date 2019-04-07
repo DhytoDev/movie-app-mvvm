@@ -1,4 +1,4 @@
-package dev.dhyto.movie_app.domain.model;
+package dev.dhyto.domain.models;
 
 public class Movie {
     private int id;

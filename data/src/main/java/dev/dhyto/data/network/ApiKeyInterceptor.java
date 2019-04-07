@@ -1,9 +1,9 @@
-package dev.dhyto.movie_app.data.network;
+package dev.dhyto.data.network;
 
 
 import java.io.IOException;
 
-import dev.dhyto.movie_app.BuildConfig;
+import dev.dhyto.data.BuildConfig;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;

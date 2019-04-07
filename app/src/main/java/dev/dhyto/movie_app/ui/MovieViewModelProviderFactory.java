@@ -3,9 +3,8 @@ package dev.dhyto.movie_app.ui;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import dev.dhyto.movie_app.domain.GetMovies;
-import dev.dhyto.movie_app.domain.UseCase;
-import dev.dhyto.movie_app.ui.MovieViewModel;
+import dev.dhyto.domain.interactors.GetMovies;
+
 
 public class MovieViewModelProviderFactory extends ViewModelProvider.NewInstanceFactory {
 
