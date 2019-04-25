@@ -28,7 +28,7 @@ public class MovieViewModel extends BaseViewModel<GetMovies> {
 
     public void getNowPlayingMovies() {
         showLoading.setValue(true);
-        getCompositeDisposable().add(getInteractor().getNowPlayingMovies()
+        getCompositeDisposable().add(getInteractor().useCaseObservable(null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movies -> {

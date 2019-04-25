@@ -14,7 +14,7 @@ public class InjectorUtils {
 
     public static MovieViewModelProviderFactory provideViewModelProviderFactory(){
         MovieRepositoryImpl repository = provideRepository();
-        GetMovies movieInteractor = new GetMovies(repository);
-        return new MovieViewModelProviderFactory(movieInteractor);
+        GetMovies getMoviesUseCase = new GetMovies(repository);
+        return new MovieViewModelProviderFactory(getMoviesUseCase);
     }
 }

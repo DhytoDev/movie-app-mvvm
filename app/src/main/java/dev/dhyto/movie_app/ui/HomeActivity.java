@@ -35,8 +35,8 @@ public class HomeActivity extends AppCompatActivity {
         viewModel.getErrorMessage().observe(this, this::printErrorMessage);
     }
 
-    private void showLoading(Boolean aBoolean) {
-        if (aBoolean) {
+    private void showLoading(Boolean isShowLoading) {
+        if (isShowLoading) {
             Log.d(LOG, "show loading");
         } else {
             Log.d(LOG, "hide loading");

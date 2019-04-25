@@ -1,15 +1,8 @@
 package dev.dhyto.domain.interactors;
 
-public abstract class UseCase<R> {
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 
-    private R repository;
-
-    public UseCase(R repository) {
-        this.repository = repository;
-
-    }
-
-    public R getRepository() {
-        return repository;
-    }
+public abstract class UseCase<T, Params> {
+    public abstract Observable<T> useCaseObservable(Params params);
 }
